@@ -1,0 +1,94 @@
+modules:
+  - name: "epever_controller"
+    metrics:
+      - name: solar_voltage
+        metricType: gauge
+        help: PV array input voltage (V)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x3100
+        factor: 0.01
+      - name: solar_current
+        metricType: gauge
+        help: PV array input current (A)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x3101
+        factor: 0.01
+      - name: solar_power
+        metricType: gauge
+        help: PV array input power (W)
+        inputType: inputRegister
+        dataType: float32
+        address: 0x3102
+        factor: 0.01
+      - name: battery_power
+        metricType: gauge
+        help: Battery power (W)
+        inputType: inputRegister
+        dataType: float32
+        address: 0x3106
+        factor: 0.01
+      - name: load_voltage
+        metricType: gauge
+        help: Load voltage (V)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x310c
+        factor: 0.01
+      - name: load_current
+        metricType: gauge
+        help: Load current (A)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x310d
+        factor: 0.01
+      - name: load_power
+        metricType: gauge
+        help: Load power (W)
+        inputType: inputRegister
+        dataType: float32
+        address: 0x310e
+        factor: 0.01
+      - name: battery_temp
+        metricType: gauge
+        help: Battery temperature (C)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x3110
+        factor: 0.01
+      - name: controller_temp
+        metricType: gauge
+        help: Controller temperature (C)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x3111
+        factor: 0.01
+      - name: battery_soc
+        metricType: gauge
+        help: Battery state of charge, percent of remaining capacity
+        inputType: inputRegister
+        dataType: float16
+        address: 0x311a
+        factor: 0.01
+      - name: battery_remote_temp
+        metricType: gauge
+        help: Battery temperature measured by remote sensor (C)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x311b
+        factor: 0.01
+      - name: battery_voltage
+        metricType: gauge
+        help: Battery voltage (V)
+        inputType: inputRegister
+        dataType: float16
+        address: 0x331a
+        factor: 0.01
+      - name: battery_current
+        metricType: gauge
+        help: Battery current (A)
+        inputType: inputRegister
+        dataType: float32
+        address: 0x331b
+        factor: 0.01
