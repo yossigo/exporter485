@@ -43,8 +43,8 @@ Additional configuration can be provided as command line arguments. To get more 
 
 This is a really early work in progress, but it works for me. Other things I considered adding are:
 
-[ ] Better logging.
-[ ] Batched modbus register reading.
-[ ] Better error handling.
-[ ] A status page.
-[ ] Exporter introspection metrics.
+- [ ] Better logging.
+- [ ] Batched modbus register reading.
+- [ ] Better error handling.
+- [ ] A status page.
+- [ ] Exporter introspection metrics.
