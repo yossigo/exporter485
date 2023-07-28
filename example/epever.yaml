@@ -1,5 +1,6 @@
 modules:
   - name: "epever_controller"
+    moduleType: modbus
     metrics:
       - name: solar_voltage
         metricType: gauge

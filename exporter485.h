@@ -35,8 +35,15 @@
 /* Type of modbus input  */
 typedef enum input_type {
     INPUT_TYPE_HOLDING_REGISTER,
-    INPUT_TYPE_INPUT_REGISTER
+    INPUT_TYPE_INPUT_REGISTER,
+    INPUT_TYPE_PAYLOAD_OFFSET
 } input_type_t;
+
+/* Type of module */
+typedef enum module_type {
+    MODULE_TYPE_MODBUS,
+    MODULE_TYPE_TBB_INVERTER,
+} module_type_t;
 
 /* Prometheus metric type */
 typedef enum metric_type {
@@ -78,6 +85,7 @@ typedef struct metric {
 /* A device class is a collection of metrics */
 typedef struct module {
     char *name;
+    module_type_t module_type;
     metric_t **metrics;
     unsigned int metrics_count;
 } module_t;
@@ -110,6 +118,11 @@ typedef struct options {
     int dry_run;
 } options_t;
 
+#define TBB_PAYLOAD_SIZE    142
+typedef struct tbb_payload {
+    char data[TBB_PAYLOAD_SIZE];
+} tbb_payload_t;
+
 typedef struct _modbus modbus_t;
 
 typedef struct exporter {
@@ -131,5 +144,8 @@ void metrics_value_set_free(metrics_value_set_t *values);
 /* http.c */
 void handle_config(struct evhttp_request *req, void *arg);
 void handle_metrics(struct evhttp_request *req, void *arg);
+
+/* tbb_inverter.c */
+int tbb_get_payload(exporter_t *exporter, tbb_payload_t *payload);
 
 #endif  /* EXPORTER485_H */

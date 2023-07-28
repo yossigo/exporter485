@@ -34,7 +34,8 @@
 
 static const cyaml_strval_t input_type_strings[] = {
     { "holdingRegister", INPUT_TYPE_HOLDING_REGISTER },
-    { "inputRegister", INPUT_TYPE_INPUT_REGISTER }
+    { "inputRegister", INPUT_TYPE_INPUT_REGISTER },
+        { "payloadOffset", INPUT_TYPE_PAYLOAD_OFFSET }
 };
 
 static const cyaml_strval_t metric_type_strings[] = {
@@ -107,12 +108,21 @@ static const cyaml_schema_value_t metric_schema = {
     CYAML_VALUE_MAPPING(CYAML_FLAG_POINTER, struct metric, metric_fields)
 };
 
+static const cyaml_strval_t module_type_strings[] = {
+    { "modbus", MODULE_TYPE_MODBUS },
+    { "tbb-inverter", MODULE_TYPE_TBB_INVERTER }
+};
+
 static const cyaml_schema_field_t module_fields[] = {
     CYAML_FIELD_STRING_PTR(
         "name", CYAML_FLAG_POINTER,
         struct module, name, 0, CYAML_UNLIMITED),
+    CYAML_FIELD_ENUM(
+        "moduleType", CYAML_FLAG_DEFAULT,
+        struct module, module_type, module_type_strings,
+        CYAML_ARRAY_LEN(module_type_strings)),
     CYAML_FIELD_SEQUENCE(
-        "metrics", CYAML_FLAG_POINTER,
+        "metrics", CYAML_FLAG_POINTER | CYAML_FLAG_OPTIONAL,
         struct module, metrics,
         &metric_schema, 0, CYAML_UNLIMITED),
     CYAML_FIELD_END

@@ -1,0 +1,102 @@
+modules:
+  - name: "tbb_kinergier_pro"
+    moduleType: tbb-inverter
+    metrics:
+      - name: ac_output_power
+        metricType: gauge
+        help: AC output power (W)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x10
+        factor: 1
+      - name: ac_output_power_va
+        metricType: gauge
+        help: AC output power (VA)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x14
+        factor: 1
+      - name: ac_input_voltage
+        metricType: gauge
+        help: AC input voltage (V)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x16
+        factor: 0.01
+      - name: ac_output_voltage
+        metricType: gauge
+        help: AC output voltage (V)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x18
+        factor: 0.1
+      - name: ac_output_current
+        metricType: gauge
+        help: AC output current (A)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x1e
+        factor: 0.01
+      - name: battery_voltage
+        metricType: gauge
+        help: Battery voltage (V)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x22
+        factor: 0.001
+      - name: battery_current
+        metricType: gauge
+        help: Battery current (A)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x24
+        factor: 0.1
+      - name: transformer_temp
+        metricType: gauge
+        help: Transformer temperature (C)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x26
+        factor: 1
+      - name: heatsink1_temp
+        metricType: gauge
+        help: Heatsink1 temperature (C)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x28
+        factor: 1
+      - name: internal_temp
+        metricType: gauge
+        help: Internal temperature (C)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x2a
+        factor: 1
+      - name: heatsink2_temp
+        metricType: gauge
+        help: Heatsink2 temperature (C)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x2c
+        factor: 1
+      - name: ac_output_freq
+        metricType: gauge
+        help: AC output frequency (Hz)
+        inputType: payloadOffset
+        dataType: float16
+        address: 0x42
+        factor: 0.01
+      - name: inverter_load
+        metricType: gauge
+        help: Inverter load (Percent)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x44
+        factor: 1
+      - name: output_load
+        metricType: gauge
+        help: Output load (Percent)
+        inputType: payloadOffset
+        dataType: uint16
+        address: 0x46
+        factor: 1

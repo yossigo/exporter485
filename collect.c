@@ -43,8 +43,21 @@ metrics_value_set_t *metrics_value_set_collect(exporter_t *exporter, module_t *m
     values->values_count = module->metrics_count;
     values->values = calloc(values->values_count, sizeof(metric_value_t));
 
-    if (!exporter->options.dry_run)
-        modbus_set_slave(exporter->modbus, target);
+    tbb_payload_t payload;
+
+    switch (module->module_type) {
+        case MODULE_TYPE_MODBUS:
+            if (!exporter->options.dry_run)
+                modbus_set_slave(exporter->modbus, target);
+            break;
+        case MODULE_TYPE_TBB_INVERTER:
+            if (tbb_get_payload(exporter, &payload) < 0)
+                goto error;
+            break;
+        default:
+            goto error;
+    }
+
     for (int i = 0; i < values->values_count; i++) {
         metric_t *metric = module->metrics[i];
         uint16_t reg[2];
@@ -76,6 +89,10 @@ metrics_value_set_t *metrics_value_set_collect(exporter_t *exporter, module_t *m
                     if (modbus_read_registers(exporter->modbus, metric->address, nregs, reg) < 0)
                         goto error;
                     break;
+                case INPUT_TYPE_PAYLOAD_OFFSET:
+                    /* Only supporting 16 bit values */
+                    reg[0] = (uint16_t) payload.data[metric->address] << 8 | payload.data[metric->address+1];
+                    break;
             }
         }
 
@@ -93,10 +110,10 @@ metrics_value_set_t *metrics_value_set_collect(exporter_t *exporter, module_t *m
                 values->values[i].uint_value = (reg[high_reg] << 16) | reg[low_reg];
                 break;
             case DATA_TYPE_FLOAT16:
-                values->values[i].float_value = reg[low_reg];
+                values->values[i].float_value = (int16_t) reg[low_reg];
                 break;
             case DATA_TYPE_FLOAT32:
-                values->values[i].float_value = (reg[high_reg] << 16) | reg[low_reg];
+                values->values[i].float_value = (int32_t) ((reg[high_reg] << 16) | reg[low_reg]);
                 break;
             default:
                 goto error;
